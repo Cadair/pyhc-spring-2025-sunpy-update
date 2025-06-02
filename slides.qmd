@@ -1,13 +1,11 @@
 ---
-title: An Example SunPy Presentation
-subtitle: Conference / Location / Date
+title: A SunPy Project Update
+subtitle: PyHC Spring Meeting
 authors:
-- A. Speaker
-- B. Presenter
+- Stuart Mumford
 - The SunPy Project
 institute:
-- Example University
-- NASA
+- Aperio Software Ltd
 format:
   revealjs:
     margin: 0
@@ -15,7 +13,7 @@ format:
     height: 100%
     theme: [default, theme/sunpy-theme.scss]
     logo: static/sunpy_logo_landscape.svg
-    footer: "[wtbarnes.github.io/sunpy-presentation-template](https://wtbarnes.github.io/sunpy-presentation-template)"
+    footer: "[Cadair/pyhc-spring-2025-sunpy-update](https://github.com/Cadair/pyhc-spring-2025-sunpy-update)"
 title-slide-attributes: 
   data-background-image: static/sunpy_icon.svg
   data-background-position: -100% 50%
@@ -29,37 +27,151 @@ import os
 os.environ["PARFIVE_HIDE_PROGRESS"] = "True"
 ```
 
-# The `sunpy` Package
+# The SunPy Project Since November
 
----
 
-![](static/tour.svg){height="750"}
+**Feature Releases:**
 
-## The package includes...
+* `sunpy` 6.1 (Feburary), 7.0rc2 out for testing, final expected this week.
+* `ndcube` 2.3 (January)
+* `sunkit-image` 0.6 (Feburary)
+* `sunkit-instruments` 0.6 (March)
+* `drms` 0.9 (Feburary)
+* `sunkit-magex` 1.1 (May)
 
-- Data search and retrieval
-- Data structures for timeseries and image data
-- Coordinate frames and conversions
-- and much more!
+**Maintenance Releases:**
 
-## Another slide with a plot inline
+* `streamtracer` 2.4.0 and 2.4.1
+* `radiospectra` 0.6.1
+  
+
+# Highlights in `sunpy` 6.1 and 7.0
+
+## Drawing extents of images on other images
+:::: {.columns}
+
+::: {.column width="50%"}
+![](https://docs.sunpy.org/en/stable/_images/sphx_glr_draw_wcs_extent_002.png)
+:::
+
+::: {.column width="50%"}
+![](https://docs.sunpy.org/en/stable/_images/sphx_glr_draw_wcs_extent_003.png)
+:::
+
+::::
+
+[https://docs.sunpy.org/en/stable/generated/gallery/plotting/draw_wcs_extent.html](https://docs.sunpy.org/en/stable/generated/gallery/plotting/draw_wcs_extent.html)
+
+*Contribution by Will Barnes*
+
+## Helioprojective Radial Coordinates
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](https://docs.sunpy.org/en/stable/_images/sphx_glr_reprojection_helioprojective_radial_001.png)
+:::
+
+::: {.column width="50%"}
+![](https://docs.sunpy.org/en/stable/_images/sphx_glr_reprojection_helioprojective_radial_002.png)
+:::
+
+::::
+
+[https://docs.sunpy.org/en/stable/generated/gallery/map_transformations/reprojection_helioprojective_radial.html](https://docs.sunpy.org/en/stable/generated/gallery/map_transformations/reprojection_helioprojective_radial.html)
+
+*Contribution by Albert Shih*
+
+## Support for S3 URIs with fsspec 
+
+:::: {.center}
 
 ```{python}
-#| fig-align: center
+#| echo: true
 import sunpy.map
-import sunpy.data.sample
 
-m = sunpy.map.Map(sunpy.data.sample.AIA_171_IMAGE)
-m.peek()
+s3_map = sunpy.map.Map("s3://data.sunpy.org/sunpy/AIA20110607_063302_0171_lowres.fits",
+                       fsspec_kwargs={"anon": True})
+s3_map.peek()
 ```
+::::
 
-## You can also include code
+*Contribution by Wenli Mo*
 
-The code below shows how to create a coordinate in the same frame as the map shown before.
-```{python}
-# | echo: true
-import astropy.coordinates
-import astropy.units as u
-my_coord = astropy.coordinates.SkyCoord(Tx=300*u.arcsec, Ty=500*u.arcsec, frame=m.coordinate_frame)
-print(my_coord)
-```
+## Support for New Observatories
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Polarimeter to Unify the Corona and Heliosphere (PUNCH) 
+
+![](https://docs.sunpy.org/en/latest/_images/7.0-punch.png)
+:::
+
+::: {.column width="50%"}
+Solar Ultraviolet Imaging Telescope (SUIT)
+![](./static/suit.png)
+:::
+
+::::
+
+Also added support for EIT Level 1 data and GONG magnetograms.
+
+*Contributions by Chris Lowder, Rahul Gopalakrishnan, Nabil Freij, Shane Maloney*
+
+## Plotting Maps with Autoalignment
+
+`.plot(autoalign=True)` now picks the best autoalign method (with significantly better performance):
+
+:::: {.columns}
+
+::: {.column width="65%"}
+![](https://docs.sunpy.org/en/latest/_images/sphx_glr_autoalign_aia_hmi_001.png)
+:::
+
+::: {.column width="35%"}
+![](https://docs.sunpy.org/en/latest/_images/sphx_glr_autoalign_aia_hmi_003.png)
+:::
+
+::::
+
+*Contributions by Albert Shih, Pratham Hole*
+
+## Off-disk points can now be differentially rotated
+
+by using [`SphericalScreen`](https://docs.sunpy.org/en/latest/generated/api/sunpy.coordinates.SphericalScreen.html#sunpy.coordinates.SphericalScreen)
+
+::: {.small}
+![](https://docs.sunpy.org/en/latest/_images/sphx_glr_reprojected_map_002.png)
+:::
+
+*Contributions by Albert Shih*
+
+# ndcube 2.3
+
+Highlights:
+
+* Add's a `NDMeta` class with functionality for assigning metadata to an array axis (and modifying it accordingly).
+* Adds `NDCube.squeeze()`  to remove length 1 axes.
+* Significant speed up in `NDCube.axis_world_coords`.
+* Add's a shortcut to `NDCube.rebin()` to not rebin along an axis by setting its binsize to -1.
+
+Changelog: [https://docs.sunpy.org/projects/ndcube/en/stable/whatsnew/changelog.html#id2](https://docs.sunpy.org/projects/ndcube/en/stable/whatsnew/changelog.html#id2)
+
+# sunkit-magex 1.1
+
+Highlights:
+
+* Various cleanups, with some breaking changes from the pfsspy API.
+* Made the `streamtracer` dependancy required for fast tracing.
+
+# sunkit-instruments 0.6
+
+Highlights:
+
+* `SourceSpectra` and `AbstractChannel` classes as building blocks for temperature response functionality.
+* Added support for SUVI flight models.
+
+# Other Updates
+
+* Coordination Meeting 18th-20th June in London (hybrid) - [https://sunpy.org/about/meetings](https://sunpy.org/about/meetings)
