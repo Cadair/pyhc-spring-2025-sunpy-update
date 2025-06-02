@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "slides.html#drawing-extents-of-images-on-other-images",
+    "href": "slides.html#drawing-extents-of-images-on-other-images",
+    "title": "A SunPy Project Update",
+    "section": "Drawing extents of images on other images",
+    "text": "Drawing extents of images on other images\n\n\n\n\n\n\nhttps://docs.sunpy.org/en/stable/generated/gallery/plotting/draw_wcs_extent.html\nContribution by Will Barnes"
+  },
+  {
+    "objectID": "slides.html#helioprojective-radial-coordinates",
+    "href": "slides.html#helioprojective-radial-coordinates",
+    "title": "A SunPy Project Update",
+    "section": "Helioprojective Radial Coordinates",
+    "text": "Helioprojective Radial Coordinates\n\n\n\n\n\n\nhttps://docs.sunpy.org/en/stable/generated/gallery/map_transformations/reprojection_helioprojective_radial.html\nContribution by Albert Shih"
+  },
+  {
+    "objectID": "slides.html#support-for-s3-uris-with-fsspec",
+    "href": "slides.html#support-for-s3-uris-with-fsspec",
+    "title": "A SunPy Project Update",
+    "section": "Support for S3 URIs with fsspec",
+    "text": "Support for S3 URIs with fsspec\n\n\nimport sunpy.map\n\ns3_map = sunpy.map.Map(\"s3://data.sunpy.org/sunpy/AIA20110607_063302_0171_lowres.fits\",\n                       fsspec_kwargs={\"anon\": True})\ns3_map.peek()\n\n\n\n\n\n\n\n\n\nContribution by Wenli Mo"
+  },
+  {
+    "objectID": "slides.html#support-for-new-observatories",
+    "href": "slides.html#support-for-new-observatories",
+    "title": "A SunPy Project Update",
+    "section": "Support for New Observatories",
+    "text": "Support for New Observatories\n\n\nPolarimeter to Unify the Corona and Heliosphere (PUNCH)\n\n\nSolar Ultraviolet Imaging Telescope (SUIT) \n\nAlso added support for EIT Level 1 data and GONG magnetograms.\nContributions by Chris Lowder, Rahul Gopalakrishnan, Nabil Freij, Shane Maloney"
+  },
+  {
+    "objectID": "slides.html#plotting-maps-with-autoalignment",
+    "href": "slides.html#plotting-maps-with-autoalignment",
+    "title": "A SunPy Project Update",
+    "section": "Plotting Maps with Autoalignment",
+    "text": "Plotting Maps with Autoalignment\n.plot(autoalign=True) now picks the best autoalign method (with significantly better performance):\n\n\n\n\n\n\nContributions by Albert Shih, Pratham Hole"
+  },
+  {
+    "objectID": "slides.html#off-disk-points-can-now-be-differentially-rotated",
+    "href": "slides.html#off-disk-points-can-now-be-differentially-rotated",
+    "title": "A SunPy Project Update",
+    "section": "Off-disk points can now be differentially rotated",
+    "text": "Off-disk points can now be differentially rotated\nby using SphericalScreen\n\n\n\nContributions by Albert Shih"
+  }
+]
