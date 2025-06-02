@@ -1,1 +1,1 @@
-sunpy[map]
+sunpy[all,s3]
